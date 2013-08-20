@@ -21,3 +21,8 @@ RUN cd $HOME/$CSPACE_USERNAME/src/services && mvn clean install -DskipTests
 # Deploy configuration artifacts, create and initialize the databases, and populate with AuthN/AuthZ tables
 #
 RUN cd $HOME/$CSPACE_USERNAME/src/services && ant undeploy deploy create_db import
+
+#
+# Finally export port 8080 to our host
+#
+EXPOSE :8080
