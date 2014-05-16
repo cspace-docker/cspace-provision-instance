@@ -1,4 +1,4 @@
-FROM cspace-version-3.3
+FROM rem/cspace-version
 MAINTAINER Richard Millet "richard.millet@berkeley.edu"
 
 #
