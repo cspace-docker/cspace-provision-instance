@@ -4,10 +4,10 @@ MAINTAINER Richard Millet "richard.millet@berkeley.edu"
 #
 # Setup CollectionSpace instance-specific database properties
 #
-ENV DB_USER postgres
-ENV DB_PASSWORD postgres
-ENV DB_PASSWORD_NUXEO nuxeo
-ENV DB_PASSWORD_CSPACE cspace
+ENV DB_CSADMIN_PASSWORD csadmin
+ENV DB_CSPACE_PASSWORD cspace
+ENV DB_NUXEO_PASSWORD nuxeo
+ENV DB_READER_PASSWORD reader
 
 #
 # Perform a full source code build and deployment. NOTE: We must build the Application layer first since it creates the configuation tool
@@ -23,6 +23,6 @@ RUN cd $USER_HOME/$CSPACE_USERNAME/src/ui && mvn clean install -DskipTests
 RUN cd $USER_HOME/$CSPACE_USERNAME/src/services && ant undeploy deploy create_db import
 
 #
-# Finally export port 8080 to our host
+# Finally export port 8180 to our host
 #
-EXPOSE :8080
+EXPOSE 8180
