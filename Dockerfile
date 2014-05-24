@@ -1,13 +1,32 @@
 FROM rem/cspace-version
 MAINTAINER Richard Millet "richard.millet@berkeley.edu"
 
+# ############################################################
+# IMPORTANT: This Dockerfile MUST be invoked via
+# 'docker run --env-file=cspace-instance.properties ...';
+# that is, by referencing the 'cspace-instances.properties'
+# file, which sets up required environment variables.
 #
-# Setup CollectionSpace instance-specific database properties
+# The values in that file can - and should - be edited, each
+# time you set up a new CollectionSpace server instance.
 #
-ENV DB_CSADMIN_PASSWORD csadmin
-ENV DB_CSPACE_PASSWORD cspace
-ENV DB_NUXEO_PASSWORD nuxeo
-ENV DB_READER_PASSWORD reader
+# (There is a 'cspace-instance.copyme' template file in
+# this project, which you can copy and rename to create
+# the 'cspace-instances.properties' file.)
+# ############################################################
+
+#
+# Set the host and port of the PostgreSQL database server
+# to which this CollectionSpace server will be connecting.
+#
+# TODO: Use awk or sed to edit the db.host and db.port values
+# in $USER_HOME/$CSPACE_USERNAME/src/services/build.properties
+
+#
+# Set the instance ID of this CollectionSpace server instance.
+#
+# TODO: Use awk or sed to edit the cspace.instance.id value
+# in $USER_HOME/$CSPACE_USERNAME/src/services/build.properties
 
 #
 # Perform a full source code build and deployment. NOTE: We must build the Application layer first since it creates the configuation tool
