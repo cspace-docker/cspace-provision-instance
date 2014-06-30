@@ -1,11 +1,12 @@
+#!/usr/bin/env bash
+
 # cspace-instance.copyme
 #
 # This is a template file.  Please do the following:
 #
-# 1. COPY this file, creating a new file named 'cspace-instance.properties'.
+# 1. COPY this file, creating a new file named 'cspace-instance.sh'.
 # 2. In the newly-created file, CHANGE any or all of the default values below,
 #    as directed.
-
 
 # Passwords for various database users
 #
@@ -15,17 +16,17 @@
 #
 # A superuser account for CollectionSpace database administration.
 #
-DB_CSADMIN_PASSWORD=csadmin
+export DB_CSADMIN_PASSWORD=csadmin
 #
 # Accounts for reading and writing to the AuthN/AuthZ database
 # and 'all other records' database, respectively.
 #
-DB_CSPACE_PASSWORD=cspace
-DB_NUXEO_PASSWORD=nuxeo
+export DB_CSPACE_PASSWORD=cspace
+export DB_NUXEO_PASSWORD=nuxeo
 #
 # An account for read-only access to the 'all other records' database.
 #
-DB_READER_PASSWORD=reader
+export DB_READER_PASSWORD=reader
 
 
 # Database server information.
@@ -37,8 +38,8 @@ DB_READER_PASSWORD=reader
 # Database server hostname (or IP address) and port.
 # Defaults are 'localhost' and '5432', respectively.
 #
-DB_HOST=localhost
-DB_PORT=5432
+export DB_HOST=localhost
+export DB_PORT=5432
 
 
 # Instance ID.
@@ -54,4 +55,4 @@ DB_PORT=5432
 #
 # The instance ID is blank by default. If it is added, by convention,
 # instance IDs should begin with an underscore (_). E.g.: _myinstancename
-CSPACE_INSTANCE_ID=
+export CSPACE_INSTANCE_ID=
