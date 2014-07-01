@@ -1,3 +1,4 @@
+#
 # cspace-instance Dockerfile
 #
 # Dockerfile 3 of 3 to install and configure a CollectionSpace
@@ -18,6 +19,7 @@ MAINTAINER Richard Millet "richard.millet@berkeley.edu"
 # TODO: Use awk or sed to edit the db.host and db.port values
 # in $USER_HOME/$CSPACE_USERNAME/src/services/build.properties,
 # based on values passed into or referenced from this Dockerfile.
+#
 
 #
 # Set the instance ID of this CollectionSpace server instance.
@@ -25,6 +27,7 @@ MAINTAINER Richard Millet "richard.millet@berkeley.edu"
 # TODO: Use awk or sed to edit the cspace.instance.id value
 # in $USER_HOME/$CSPACE_USERNAME/src/services/build.properties
 # based on values passed into or referenced from this Dockerfile.
+#
 
 #
 # Perform a full source code build and deployment.
