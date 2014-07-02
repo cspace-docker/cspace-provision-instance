@@ -16,17 +16,17 @@
 #
 # A superuser account for CollectionSpace database administration.
 #
-export DB_CSADMIN_PASSWORD=csadmin
+s/${DB_CSADMIN_PASSWORD}/csadmin/
 #
 # Accounts for reading and writing to the AuthN/AuthZ database
 # and 'all other records' database, respectively.
 #
-export DB_CSPACE_PASSWORD=cspace
-export DB_NUXEO_PASSWORD=nuxeo
+s/${DB_CSPACE_PASSWORD}/cspace/
+s/${DB_NUXEO_PASSWORD}/nuxeo/
 #
 # An account for read-only access to the 'all other records' database.
 #
-export DB_READER_PASSWORD=reader
+s/${DB_READER_PASSWORD}/reader/
 
 
 # Database server information.
@@ -38,8 +38,8 @@ export DB_READER_PASSWORD=reader
 # Database server hostname (or IP address) and port.
 # Defaults are 'localhost' and '5432', respectively.
 #
-export DB_HOST=localhost
-export DB_PORT=5432
+s/${DB_HOST}/localhost/
+s/${DB_PORT}/5432/
 
 
 # Instance ID.
@@ -55,4 +55,4 @@ export DB_PORT=5432
 #
 # The instance ID is blank by default. If it is added, by convention,
 # instance IDs should begin with an underscore (_). E.g.: _myinstancename
-export CSPACE_INSTANCE_ID=
+s/${CSPACE_INSTANCE_ID}//
