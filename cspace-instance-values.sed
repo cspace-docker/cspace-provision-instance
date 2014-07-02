@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 
-# cspace-instance.copyme
+# cspace-instance.sed
 #
-# This is a template file.  Please do the following:
-#
-# 1. COPY this file, creating a new file named 'cspace-instance.sh'.
-# 2. In the newly-created file, CHANGE any or all of the default values below,
-#    as directed.
+# This file contains the default values for a number of 
 
 # Passwords for various database users
 #
