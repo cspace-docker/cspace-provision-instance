@@ -19,6 +19,7 @@ MAINTAINER Richard Millet "richard.millet@berkeley.edu"
 # The following values will be replaced by a text preprocessor
 # (currently 'sed'), which will retrieve them from a per-instance
 # configuration file, cspace-instance-values.sed:
+ENV DB_CSADMIN_PASSWORD ${DB_CSADMIN_PASSWORD}
 ENV DB_CSPACE_PASSWORD ${DB_CSPACE_PASSWORD}
 ENV DB_NUXEO_PASSWORD ${DB_NUXEO_PASSWORD}
 ENV DB_READER_PASSWORD ${DB_READER_PASSWORD}
