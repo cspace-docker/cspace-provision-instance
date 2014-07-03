@@ -39,11 +39,11 @@ ENV CSPACE_INSTANCE_ID ${CSPACE_INSTANCE_ID}
 # Note: the following 'sed' expressions require double quoting,
 # so that values can be interpolated from environment variables.
 #
-RUN sed --expression="s/db.host=/db.host=$DB_HOST/" --in-place=bak \
+RUN sed --expression="s/^db.host=.*/db.host=$DB_HOST/" --in-place=bak \
   $USER_HOME/$CSPACE_USERNAME/src/services/build.properties
-RUN sed --expression="s/db.port=/db.port=$DB_PORT/" --in-place=bak \
+RUN sed --expression="s/^db.port=.*/db.port=$DB_PORT/" --in-place=bak \
   $USER_HOME/$CSPACE_USERNAME/src/services/build.properties
-RUN sed --expression="s/cspace.instance.id=/cspace.instance.id=$CSPACE_INSTANCE_ID/" --in-place=bak \
+RUN sed --expression="s/^cspace.instance.id=.*/cspace.instance.id=$CSPACE_INSTANCE_ID/" --in-place=bak \
   $USER_HOME/$CSPACE_USERNAME/src/services/build.properties
 
 #
