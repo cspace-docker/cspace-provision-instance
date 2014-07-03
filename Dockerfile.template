@@ -67,7 +67,7 @@ RUN cd $USER_HOME/$CSPACE_USERNAME/src/services && ant undeploy deploy
 # a running PostgreSQL server, at the host and port specified in
 # DB_HOST and DB_PORT respectively.
 #
-RUN create_db import
+RUN ant create_db import
 
 #
 # Finally set up any containers run from this image to listen on port 8180,
