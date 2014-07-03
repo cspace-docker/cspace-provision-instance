@@ -61,9 +61,21 @@ RUN cd $USER_HOME/$CSPACE_USERNAME/src/ui && mvn clean install -DskipTests
 # Deploy configuration artifacts, create and initialize the databases,
 # and populate the AuthN/AuthZ tables.
 #
-RUN cd $USER_HOME/$CSPACE_USERNAME/src/services && ant undeploy deploy create_db import
+RUN cd $USER_HOME/$CSPACE_USERNAME/src/services && ant undeploy deploy
+#
+# The following command, to run successfully, MUST have access to
+# a running PostgreSQL server, at the host and port specified in
+# DB_HOST and DB_PORT respectively.
+#
+RUN create_db import
 
 #
-# Finally export port 8180 to our host
+# Finally set up any containers run from this image to listen on port 8180,
+# CollectionSpace's default HTTP port.
+#
+# When a container is run from this image, see the following instructions
+# to configure how the Docker host, other hosts, and other containers can
+# talk to the process(es) running inside the container at that port:
+# http://docs.docker.com/userguide/dockerlinks/#network-port-mapping-refresher)
 #
 EXPOSE 8180
