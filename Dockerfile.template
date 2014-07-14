@@ -69,6 +69,24 @@ RUN cd $USER_HOME/$CSPACE_USERNAME/src/services && mvn clean install -DskipTests
 RUN cd $USER_HOME/$CSPACE_USERNAME/src/ui && mvn clean install -DskipTests
 
 #
+# Set up PostgreSQL datatype conversions required by Nuxeo,
+# if these don't already exist:
+#
+# Integer to text
+#
+RUN psql -U csadmin -d template1 --command "CREATE OR REPLACE FUNCTION pg_catalog.text(integer) RETURNS text STRICT IMMUTABLE LANGUAGE SQL AS 'SELECT textin(int4out($1));';"
+RUN psql -U csadmin -d template1 --command "DROP CAST IF EXISTS (integer AS text);"
+RUN psql -U csadmin -d template1 --command "CREATE CAST (integer AS text) WITH FUNCTION pg_catalog.text(integer) AS IMPLICIT;"
+RUN psql -U csadmin -d template1 --command "COMMENT ON FUNCTION pg_catalog.text(integer) IS 'convert integer to text';"
+#
+# Bigint to text
+#
+RUN psql -U csadmin -d template1 --command "CREATE OR REPLACE FUNCTION pg_catalog.text(bigint) RETURNS text STRICT IMMUTABLE LANGUAGE SQL AS 'SELECT textin(int8out($1));';"
+RUN psql -U csadmin -d template1 --command "DROP CAST IF EXISTS (bigint AS text);"
+RUN psql -U csadmin -d template1 --command "CREATE CAST (bigint AS text) WITH FUNCTION pg_catalog.text(bigint) AS IMPLICIT;"
+RUN psql -U csadmin -d template1 --command "COMMENT ON FUNCTION pg_catalog.text(bigint) IS 'convert bigint to text';"
+
+#
 # Deploy configuration artifacts, create and initialize the databases,
 # and populate the AuthN/AuthZ tables.
 #
