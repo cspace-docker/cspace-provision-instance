@@ -90,11 +90,12 @@ ADD datatype-conversion-functions.sql $SCRIPT_INSTALL_DIR/datatype-conversion-fu
 RUN psql -h $DB_HOST -U csadmin --dbname template1 --file $SCRIPT_INSTALL_DIR/datatype-conversion-functions.sql
 
 #
-# NOTE: The following command, to run successfully, MUST have access
+# NOTE: The following commands, to run successfully, MUST have access
 # to a running PostgreSQL server, at the host and port specified in
 # DB_HOST and DB_PORT respectively.
 #
-RUN cd $USER_HOME/$CSPACE_USERNAME/src/services && ant create_db import
+RUN cd $USER_HOME/$CSPACE_USERNAME/src/services && ant create_db
+RUN cd $USER_HOME/$CSPACE_USERNAME/src/services && ant import
 
 #
 # Set up any containers run from this image to listen on port 8180,
