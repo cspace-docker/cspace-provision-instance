@@ -74,6 +74,7 @@ RUN cd $USER_HOME/$CSPACE_USERNAME/src/ui && mvn clean install -DskipTests
 #
 RUN echo "$DB_HOST:$DB_PORT:template1:csadmin:$DB_CSADMIN_PASSWORD" > $HOME/.pgpass
 RUN chmod 600 $HOME/.pgpass
+ENV PGPASSFILE $HOME/.pgpass
 
 #
 # Set up PostgreSQL datatype conversions required by Nuxeo,
