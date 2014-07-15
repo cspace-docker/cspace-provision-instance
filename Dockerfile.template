@@ -69,19 +69,26 @@ RUN cd $USER_HOME/$CSPACE_USERNAME/src/services && mvn clean install -DskipTests
 RUN cd $USER_HOME/$CSPACE_USERNAME/src/ui && mvn clean install -DskipTests
 
 #
+# Set up a PostgreSQL password file, and add an entry for the password
+# that will be used in several 'psql' commands, which follow immediately below.
+#
+RUN echo "$DB_HOST:$DB_PORT:template1:csadmin:$DB_CSADMIN_PASSWORD" > $HOME/.pgpass
+RUN chmod 600 $HOME/.pgpass
+
+#
 # Set up PostgreSQL datatype conversions required by Nuxeo,
 # if these don't already exist:
 #
 # Integer to text
 #
-RUN psql -h $DB_HOST -U csadmin -d template1 --command "CREATE OR REPLACE FUNCTION pg_catalog.text(integer) RETURNS text STRICT IMMUTABLE LANGUAGE SQL AS 'SELECT textin(int4out($1));';"
-RUN psql -h $DB_HOST -U csadmin -d template1 --command "DROP CAST IF EXISTS (integer AS text);"
-RUN psql -h $DB_HOST -U csadmin -d template1 --command "CREATE CAST (integer AS text) WITH FUNCTION pg_catalog.text(integer) AS IMPLICIT;"
-RUN psql -h $DB_HOST -U csadmin -d template1 --command "COMMENT ON FUNCTION pg_catalog.text(integer) IS 'convert integer to text';"
+RUN psql -h $DB_HOST -U csadmin --dbname template1 --command "CREATE OR REPLACE FUNCTION pg_catalog.text(integer) RETURNS text STRICT IMMUTABLE LANGUAGE SQL AS 'SELECT textin(int4out($1));';"
+RUN psql -h $DB_HOST -U csadmin --dbname template1 --command "DROP CAST IF EXISTS (integer AS text);"
+RUN psql -h $DB_HOST -U csadmin --dbname template1 --command "CREATE CAST (integer AS text) WITH FUNCTION pg_catalog.text(integer) AS IMPLICIT;"
+RUN psql -h $DB_HOST -U csadmin --dbname template1 --command "COMMENT ON FUNCTION pg_catalog.text(integer) IS 'convert integer to text';"
 #
 # Bigint to text
 #
-RUN psql -h $DB_HOST -U csadmin -d template1 --command "CREATE OR REPLACE FUNCTION pg_catalog.text(bigint) RETURNS text STRICT IMMUTABLE LANGUAGE SQL AS 'SELECT textin(int8out($1));';"
+RUN psql -h $DB_HOST -U csadmin --dbname template1 --command "CREATE OR REPLACE FUNCTION pg_catalog.text(bigint) RETURNS text STRICT IMMUTABLE LANGUAGE SQL AS 'SELECT textin(int8out($1));';"
 RUN psql -h $DB_HOST -U csadmin -d template1 --command "DROP CAST IF EXISTS (bigint AS text);"
 RUN psql -h $DB_HOST -U csadmin -d template1 --command "CREATE CAST (bigint AS text) WITH FUNCTION pg_catalog.text(bigint) AS IMPLICIT;"
 RUN psql -h $DB_HOST -U csadmin -d template1 --command "COMMENT ON FUNCTION pg_catalog.text(bigint) IS 'convert bigint to text';"
