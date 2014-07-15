@@ -108,6 +108,10 @@ RUN cd $USER_HOME/$CSPACE_USERNAME/src/services && ant create_db import
 EXPOSE 8180
 
 #
-# Start CollectionSpace as a service.
+# Start Tomcat as a service, which will launch a CollectionSpace
+# server instance.
 #
-CMD service tomcat start
+# (Tomcat is started in the foreground, to prevent the Docker container
+# from being stopped when Tomcat's startup script completes running.)
+#
+CMD service tomcat startforeground
