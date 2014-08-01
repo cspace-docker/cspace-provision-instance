@@ -1,7 +1,7 @@
 #
 # cspace-instance Dockerfile
 #
-# Dockerfile 3 of 3 to install and configure a CollectionSpace
+# Dockerfile 4 of 4 to install and configure a CollectionSpace
 # server instance inside a Docker container.
 #
 # This Dockerfile is specific to and requires Ubuntu Linux,
@@ -11,20 +11,10 @@
 
 #
 # Start from the Docker image built by running the
-# 'cspace-version' Dockerfile.
+# 'cspace-build' Dockerfile.
 #
-FROM collectionspace/cspace-version
+FROM collectionspace/cspace-build
 MAINTAINER Richard Millet "richard.millet@berkeley.edu"
-
-#
-# Perform a full source code build and deployment.
-#
-# Build the Application layer
-# NOTE: We must build the Application layer first since it creates the
-# configuration tool needed to create the Service layer's configuration
-# artifacts; i.e items such as the Nuxeo plugins and service bindings.
-#
-RUN cd $USER_HOME/$CSPACE_USERNAME/src/application && mvn clean install -DskipTests
 
 #
 # The following values will be replaced by a text preprocessor
@@ -57,16 +47,6 @@ RUN sed --expression="s/^db.port=.*/db.port=$DB_PORT/" --in-place=bak \
   $USER_HOME/$CSPACE_USERNAME/src/services/build.properties
 RUN sed --expression="s/^cspace.instance.id=.*/cspace.instance.id=$CSPACE_INSTANCE_ID/" --in-place=bak \
   $USER_HOME/$CSPACE_USERNAME/src/services/build.properties
-
-#
-# Build the Services layer
-#
-RUN cd $USER_HOME/$CSPACE_USERNAME/src/services && mvn clean install -DskipTests
-
-#
-# Build the User Interface (UI) layer
-#
-RUN cd $USER_HOME/$CSPACE_USERNAME/src/ui && mvn clean install -DskipTests
 
 #
 # Deploy configuration artifacts, create and initialize the databases,
